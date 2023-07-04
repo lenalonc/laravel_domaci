@@ -17,8 +17,8 @@ class SmartphoneController extends Controller
     {
         $smartphones = Smartphone::all();
         // return $smartphones;
-       // return SmartphoneResource::collection($smartphones);
-        return new SmartphoneColletion($smartphones);
+       return SmartphoneResource::collection($smartphones);
+    //return new SmartphoneColletion($smartphones);
     }
 
     /**
