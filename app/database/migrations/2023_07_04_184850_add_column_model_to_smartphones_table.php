@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('manufacturers', function (Blueprint $table) {
-            $table->id();
-            $table->string('naziv')->unique();
-            $table->string('zemlja_porekla');
-            $table->timestamps();
+        Schema::table('smartphones', function (Blueprint $table) {
+            $table->string('model')->after('serijski_broj');
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('manufacturers');
+        Schema::table('smartphones', function (Blueprint $table) {
+            $table->dropColumn('model');
+        });
     }
 };

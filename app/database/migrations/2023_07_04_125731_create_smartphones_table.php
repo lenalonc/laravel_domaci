@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('smartphones', function (Blueprint $table) {
             $table->id();
-            $table->string('model');
+            $table->string('serijski_broj')->unique();
             $table->integer('memorija');
             $table->integer('cena');
             $table->foreignId('user_id');
