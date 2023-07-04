@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Smartphone;
 use Illuminate\Http\Request;
+use App\Http\Resources\SmartphoneResource;
+use App\Http\Resources\SmartphoneColletion;
+
 
 class SmartphoneController extends Controller
 {
@@ -13,7 +16,9 @@ class SmartphoneController extends Controller
     public function index()
     {
         $smartphones = Smartphone::all();
-        return $smartphones;
+        // return $smartphones;
+       // return SmartphoneResource::collection($smartphones);
+        return new SmartphoneColletion($smartphones);
     }
 
     /**
@@ -35,15 +40,16 @@ class SmartphoneController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Smartphone $smartphone)
     {
-        $smartphone = Smartphone::find($id);
+        // $smartphone = Smartphone::find($id);
         
-        if(is_null($smartphone)){
-            return response()->json('data not foooound',404);
-        }
+        // if(is_null($smartphone)){
+        //     return response()->json('data not foooound',404);
+        // }
         
-        return response()->json($smartphone);
+        // return response()->json($smartphone);
+        return new SmartphoneResource($smartphone);
     }
 
     /**
