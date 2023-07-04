@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SmartphoneController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ManufacturerController;
+use App\Http\Controllers\SmartphoneTestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +21,18 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+// Route::get('/smartphones', [SmartphoneTestController::class, 'index']);
+// Route::get('/smartphones/{id}', [SmartphoneTestController::class, 'show']);
+
+//Route::resource('smartphones',SmartphoneTestController::class);
+Route::resource('smartphones',SmartphoneController::class);
+
+Route::get('/users',[UserController::class,'index']);
+Route::get('/users/{id}',[UserController::class,'show']);
+
+Route::get('/manufacturers',[ManufacturerController::class,'index']);
+Route::get('/manufacturers/{id}',[ManufacturerController::class,'show']);
+
+
