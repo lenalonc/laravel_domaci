@@ -17,7 +17,8 @@ class ManufacturerFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'naziv'=>$this->faker->word(),
+            'zemlja_porekla'=>$this->faker->word(),
         ];
     }
 }
