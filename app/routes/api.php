@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\SmartphoneTestController;
 use App\Http\Controllers\UserSmartphoneController;
+use App\Http\Controllers\API\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,4 +45,7 @@ Route::get('/users/{id}',[UserController::class,'show'])->name('users.show');
 Route::get('/users',[UserController::class,'index'])->name('users.index');
 
 Route::get('/users/{id}/smartphones',[UserSmartphoneController::class,'index'])->name('users.smartphones.index');
-Route::resource('users.smartphones', UserSmartphoneController::class)->only(index);
+Route::resource('users.smartphones', UserSmartphoneController::class)->only('index');
+
+Route::post('/register',[AuthController::class,'register']);
+Route::post('/login',[AuthController::class,'login']);
