@@ -6,6 +6,7 @@ use App\Http\Controllers\SmartphoneController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\SmartphoneTestController;
+use App\Http\Controllers\UserSmartphoneController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,8 +24,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-// Route::get('/smartphones', [SmartphoneTestController::class, 'index']);
-// Route::get('/smartphones/{id}', [SmartphoneTestController::class, 'show']);
+//Route::get('/smartphones', [SmartphoneTestController::class, 'index']);
+//Route::get('/smartphones/{id}', [SmartphoneTestController::class, 'show']);
 
 //Route::resource('smartphones',SmartphoneTestController::class);
 Route::resource('smartphones',SmartphoneController::class);
@@ -33,8 +34,14 @@ Route::resource('smartphones',SmartphoneController::class);
 //Route::get('/users',[UserController::class,'index']);
 //Route::get('/users/{id}',[UserController::class,'show']);
 
-// Route::get('/manufacturers',[ManufacturerController::class,'index']);
-// Route::get('/manufacturers/{id}',[ManufacturerController::class,'show']);
+//Route::get('/manufacturers',[ManufacturerController::class,'index']);
+//Route::get('/manufacturers/{id}',[ManufacturerController::class,'show']);
 
 Route::resource('manufacturers',ManufacturerController::class);
 Route::resource('users',UserController::class);
+
+Route::get('/users/{id}',[UserController::class,'show'])->name('users.show');
+Route::get('/users',[UserController::class,'index'])->name('users.index');
+
+Route::get('/users/{id}/smartphones',[UserSmartphoneController::class,'index'])->name('users.smartphones.index');
+Route::resource('users.smartphones', UserSmartphoneController::class)->only(index);
