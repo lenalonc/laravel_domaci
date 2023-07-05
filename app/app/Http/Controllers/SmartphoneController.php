@@ -6,6 +6,9 @@ use App\Models\Smartphone;
 use Illuminate\Http\Request;
 use App\Http\Resources\SmartphoneResource;
 use App\Http\Resources\SmartphoneColletion;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 
 class SmartphoneController extends Controller
@@ -34,7 +37,28 @@ class SmartphoneController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'serijski_broj' => 'required|string|max:255',
+            'model' => 'required|string|max:255',
+            'memorija' => 'required|string|max:255',
+            'cena' => 'required|integer',
+            'manufacturer_id' => 'required',
+
+        ]);
+
+        if($validator->fails()){
+            return response()->json($validator->errors());
+        }
+
+        $smartphone = Smartphone::create([
+            'serijski_broj'=>$request->serijski_broj,
+            'model'=>$request->model,
+            'memorija'=>$request->memorija,
+            'cena'=>$request->cena,
+            'manufacturer_id'=>$request->manufacturer_id,
+            'user_id'=>Auth::user()->id
+        ]);
+        return response()->json(['Smartphone added successfully.', new SmartphoneResource($smartphone)]);
     }
 
     /**
@@ -65,7 +89,29 @@ class SmartphoneController extends Controller
      */
     public function update(Request $request, Smartphone $smartphone)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'serijski_broj' => 'required|string|max:255',
+            'model' => 'required|string|max:255',
+            'memorija' => 'required|string|max:255',
+            'cena' => 'required|integer',
+            'manufacturer_id' => 'required',
+        ]);
+
+            if($validator->fails()){
+                return response()->json($validator->errors());
+            }
+    
+            
+                $smartphone->serijski_broj=$request->serijski_broj;
+                $smartphone->model=$request->model;
+                $smartphone->memorija=$request->memorija;
+                $smartphone->cena=$request->cena;
+                $smartphone->manufacturer_id=$request->manufacturer_id;
+                
+                $smartphone->save();
+            
+                return response()->json(['Smartphone updated successfully.',new SmartphoneResource($smartphone)]);
+
     }
 
     /**
@@ -73,6 +119,7 @@ class SmartphoneController extends Controller
      */
     public function destroy(Smartphone $smartphone)
     {
-        //
+        $smartphone->delete();
+        return response()->json('Smartphone deleted successfully');
     }
 }

@@ -12,9 +12,12 @@ class Smartphone extends Model
     use HasFactory;
 
     protected $fillable=[
+        'serijski_broj',
         'model',
         'memorija',
         'cena',
+        'manufacturer_id',
+        'user_id'
     ];
 
 
