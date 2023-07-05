@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
@@ -13,7 +14,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return $users;
+        
+       return UserResource::collection($users);
     }
 
     /**
@@ -35,15 +37,17 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($user_id)
+    public function show(User $user)
     {
-        $user = User::find($user_id);
+       // $user = new UserResource($user);
 
-        if(is_null($user)){
-            return response()->json('data not foooound',404);
-        }
+         if(is_null($user)){
+             return response()->json('data not foooound',404);
+         }
         
-        return response()->json($user);
+        //return response()->json($user);
+
+       return new UserResource($user);
     }
 
     /**

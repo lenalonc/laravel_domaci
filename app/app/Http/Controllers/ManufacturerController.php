@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Manufacturer;
 use Illuminate\Http\Request;
+use App\Http\Resources\ManufacturerResource;
 
 class ManufacturerController extends Controller
 {
@@ -13,7 +14,8 @@ class ManufacturerController extends Controller
     public function index()
     {
         $manuf = Manufacturer::all();
-        return $manuf;
+        //return $manuf;
+       return ManufacturerResource::collection($manuf);
     }
 
     /**
@@ -35,14 +37,17 @@ class ManufacturerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Manufacturer $manuf)
     {
-        $manuf = Manufacturer::find($id);
-        if(is_null($manuf)){
-            return response()->json('data not foooound',404);
-        }
         
-        return response()->json($manuf);
+       // $manuf = new ManufacturerResource($manuf);
+        if(is_null($manuf)){
+             return response()->json('data not foooound',404);
+         }
+        
+        //return response()->json($manuf);
+        return new ManufacturerResource($manuf);
+        
     }
 
     /**

@@ -12,7 +12,10 @@ class ManufacturerResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray($request): array
+
+    public static $wrap='manufacturer';
+
+    public function toArray($request)
     {
         return[
             'id'=> $this->resource->id,

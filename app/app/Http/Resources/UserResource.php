@@ -12,7 +12,11 @@ class UserResource extends JsonResource
      * Transform the resource into an array.
      *
      * @return array<string, mixed>
+     * 
      */
+
+    public static $wrap='user';
+
     public function toArray($request)
     {
        return [

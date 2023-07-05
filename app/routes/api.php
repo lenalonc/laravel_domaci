@@ -29,10 +29,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //Route::resource('smartphones',SmartphoneTestController::class);
 Route::resource('smartphones',SmartphoneController::class);
 
-Route::get('/users',[UserController::class,'index']);
-Route::get('/users/{id}',[UserController::class,'show']);
 
-Route::get('/manufacturers',[ManufacturerController::class,'index']);
-Route::get('/manufacturers/{id}',[ManufacturerController::class,'show']);
+//Route::get('/users',[UserController::class,'index']);
+//Route::get('/users/{id}',[UserController::class,'show']);
 
+// Route::get('/manufacturers',[ManufacturerController::class,'index']);
+// Route::get('/manufacturers/{id}',[ManufacturerController::class,'show']);
 
+Route::resource('manufacturers',ManufacturerController::class);
+Route::resource('users',UserController::class);
